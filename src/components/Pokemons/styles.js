@@ -1,26 +1,52 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 200px;
-  height: 350px;
-  border-radius: 8px;
+  width: 250px;
+  height: 400px;
+  border-radius: 16px;
   box-shadow: var(--shadow);
-  background-color: var(--gray-light);
-  /* padding: 30px 0; */
-`;
-export const Card = styled.div`
+
   display: flex;
   flex: 1;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  cursor: pointer;
+  transition: all 0.2s linear;
+
+  position: relative;
+`;
+export const Card = styled.div`
+  padding: 20px;
 `;
 export const Image = styled.img`
-  width: 140px;
+  width: 120px;
+  z-index: 999;
+  &:hover {
+    width: 220px;
+  }
+  transition: all 0.2s linear;
 `;
 export const Description = styled.div`
-  margin-top: 60px;
+  margin-top: 20px;
   color: var(--black);
-  font-size: 22px;
-
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 30px;
+  padding: 10px 50px;
+  border-radius: 9999px;
+  background: #d3cce3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as S from './styles'
 import Pokemons from '../../components/Pokemons'
+import Header from '../../components/Header'
+
 import { GlobalContext } from '../../hooks/useContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -24,6 +26,7 @@ function Home() {
 
 
   const [offset, setOffset] = useState(0)
+  const [limit, setLimit] = useState(20)
 
   // const getAllPokemons = async(limit = 50) => {
 
@@ -41,7 +44,7 @@ function Home() {
   // }
 
 
-  async function fetchAllPokemon(limit = 5) {
+  async function fetchAllPokemon() {
     let { json } = await request(`${currentPageUrl}pokemon?limit=${limit}&offset=${offset}`);
     setNextPageUrl(json.next)
     setPreviousPageUrl(json.previous)
@@ -51,14 +54,13 @@ function Home() {
       return data
     })
     const results = await Promise.all(promises)
-    console.log(results)
     setAllPokemons(results)
   }
 
 
   useEffect(() => {
     fetchAllPokemon()
-  }, [currentPageUrl])
+  }, [currentPageUrl, limit])
 
 
   function PreviousPage() {
@@ -68,14 +70,14 @@ function Home() {
     setCurrentPageUrl(nextPageUrl)
   }
 
-  function OffsetCounter(n) {
-    setOffset(offset + n)
-    console.log(offset)
-    window.reload()
+  function OffsetCounter() {
+    setLimit(limit + 10)
+    console.log(limit)
   }
 
   return (
     <>
+      <Header />
       <S.Container>
         <S.Card>
           {allPokemons?.map((i) => {
@@ -88,12 +90,13 @@ function Home() {
             )
           })}
         </S.Card>
+
       </S.Container>
+        <button style={{ border: "1px red solid", padding: 10, borderRadius: 8, margin: 8 }} onClick={OffsetCounter}>CARREGAR</button>
     </>
 
     // <div>
     //   <h1 style={{textAlign: 'center', marginTop: 60}}>POKEMONS</h1>
-    //   {/* <button style={{ border: "1px red solid", padding: 10, borderRadius: 8, margin: 8 }} onClick={fetchAllPokemons}>CARREGAR</button> */}
 
     // </div >
   );
