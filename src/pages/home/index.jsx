@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import * as S from './styles'
 import Pokemons from '../../components/Pokemons'
 import Header from '../../components/Header'
 
 import { GlobalContext } from '../../hooks/useContext';
 import useFetch from '../../hooks/useFetch';
+import useScroolnfinity from '../../hooks/useScroolnfinity';
 
 
 // import { Container } from './styles';
@@ -23,10 +24,13 @@ function Home() {
   const [currentPageUrl, setCurrentPageUrl] = useState('https://pokeapi.co/api/v2/')
   const [nextPageUrl, setNextPageUrl] = useState()
   const [previousPageUrl, setPreviousPageUrl] = useState()
-
-
   const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(20)
+  const [limit, setLimit] = useState(4)
+
+  const lastRef = useRef(null);
+  const isLastVisible = useScroolnfinity(lastRef.current)
+
+
 
   // const getAllPokemons = async(limit = 50) => {
 
@@ -44,8 +48,8 @@ function Home() {
   // }
 
 
-  async function fetchAllPokemon() {
-    let { json } = await request(`${currentPageUrl}pokemon?limit=${limit}&offset=${offset}`);
+  async function fetchAllPokemon(limitItems) {
+    let { json } = await request(`${currentPageUrl}pokemon?limit=${limitItems}&offset=${offset}`);
     setNextPageUrl(json.next)
     setPreviousPageUrl(json.previous)
     const promises = json.results.map(async (pokemon) => {
@@ -54,13 +58,21 @@ function Home() {
       return data
     })
     const results = await Promise.all(promises)
-    setAllPokemons(results)
+    const ressults = results.sort()
+    setAllPokemons(ressults)
   }
 
 
   useEffect(() => {
-    fetchAllPokemon()
+    fetchAllPokemon(limit)
+
   }, [currentPageUrl, limit])
+
+  useEffect(() => {
+    if (isLastVisible) {
+      const more = setLimit(limit + 4)
+    }
+  }, [isLastVisible])
 
 
   function PreviousPage() {
@@ -71,7 +83,7 @@ function Home() {
   }
 
   function OffsetCounter() {
-    setLimit(limit + 10)
+    setLimit(limit + 4)
     console.log(limit)
   }
 
@@ -79,7 +91,9 @@ function Home() {
     <>
       <Header />
       <S.Container>
-        <S.Card>
+        <S.Card
+
+        >
           {allPokemons?.map((i) => {
             return (
               <Pokemons
@@ -92,7 +106,11 @@ function Home() {
         </S.Card>
 
       </S.Container>
-        <button style={{ border: "1px red solid", padding: 10, borderRadius: 8, margin: 8 }} onClick={OffsetCounter}>CARREGAR</button>
+      <button
+        style={{ border: "1px red solid", padding: 10, borderRadius: 8, margin: 8 }}
+        onClick={OffsetCounter}
+        ref={lastRef}
+      >CARREGAR</button>
     </>
 
     // <div>
