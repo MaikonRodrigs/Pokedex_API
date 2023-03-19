@@ -1,15 +1,23 @@
 import React from 'react';
+import * as C from '../index'
 
 import * as S from './styles';
 
-function Modal({ show, onClickClose }) {
+function Modal({ show, onClickClose, img, name, loading }) {
   return (
-    <S.Container show={show}>
-      <S.Wrapper>
-        <h1>HELLO, I'm modal!</h1>
-        <S.CloseButton onClick={onClickClose} />
-      </S.Wrapper>
-    </S.Container>
+    <>
+      < S.Container show={show} >
+        <S.Wrapper>
+          {loading ? <C.LoadingItems />
+            :
+            <>
+              <S.Image src={img} alt={name} />
+              <S.CloseButton onClick={onClickClose} />
+            </>
+          }
+        </S.Wrapper>
+      </S.Container >
+    </>
   )
 }
 

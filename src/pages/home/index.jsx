@@ -9,18 +9,13 @@ import useFetch from '../../hooks/useFetch';
 import useScroolnfinity from '../../hooks/useScroolnfinity';
 
 
-// import { Container } from './styles';
-// async function fetchData() {
-//   let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${namePoke}`);
-//   setPokemon(json)
-//   // console.log(pokemon)
-// }
 
 function Home() {
   const { namePoke, setNamePoke } = useContext(GlobalContext)
   const { request, data, response } = useFetch()
 
-  // const [pokemon, setPokemon] = useState([])
+  const [pokemon, setPokemon] = useState([])
+  const [currentPokemon, setCurrentPokemon] = useState('')
   const [allPokemons, setAllPokemons] = useState([])
   const [currentPageUrl, setCurrentPageUrl] = useState('https://pokeapi.co/api/v2/')
   const [nextPageUrl, setNextPageUrl] = useState()
@@ -32,6 +27,9 @@ function Home() {
   const [showDisplay, setShowDisplay] = useState(true)
 
   const lastRef = useRef(null);
+  const pokemonRef = useRef(null);
+  console.log(pokemonRef.current)
+
   const isLastVisible = useScroolnfinity(lastRef.current)
 
 
@@ -51,6 +49,11 @@ function Home() {
   //    setAllPokemons(results)
   // }
 
+  async function fetchPokemonModal(name) {
+    let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    setPokemon(json)
+  }
+
 
   async function fetchAllPokemon(limitItems) {
     let { json } = await request(`${currentPageUrl}pokemon?limit=${limitItems}&offset=${offset}`);
@@ -62,17 +65,15 @@ function Home() {
       return data
     })
     const results = await Promise.all(promises)
-    const ressults = results.sort()
-    setAllPokemons(ressults)
+    setAllPokemons(results)
+    setCurrentPokemon(results.name)
+    console.log(currentPokemon)
 
   }
 
   useEffect(() => {
-    // setLoading(true)
     fetchAllPokemon(limit)
-    // setTimeout(() => {
-    //   setLoading(true)
-    // }, 1500)
+
 
   }, [currentPageUrl, limit])
 
@@ -99,20 +100,32 @@ function Home() {
     console.log(limit)
   }
 
+  function onClickPokemon(id) {
+    setLoading(true)
+    setShowDisplay(false)
+    fetchPokemonModal(id)
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }
+
   return (
     <>
       <C.Modal
         show={showDisplay}
         onClickClose={() => setShowDisplay(!showDisplay)}
+        img={pokemon?.sprites?.other?.dream_world?.front_default}
+        name={pokemon?.name}
+        loading={loading}
       />
-      {loading ? <C.Loading /> : ''}
+      {/* {loading ? <C.Loading /> : ''} */}
       <C.Header />
       <S.Container>
-        <S.Card>
+        <S.Card >
           {allPokemons?.map((i) => {
             return (
               <C.Pokemons
-                onClick={() => setShowDisplay(false)}
+                onClick={() => onClickPokemon(i.id)}
                 key={i.base_experience}
                 img={i.sprites.other.dream_world.front_default}
                 name={i.name}

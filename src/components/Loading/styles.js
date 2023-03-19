@@ -67,8 +67,10 @@ export const Spinner = styled(CatchingPokemon)`
 
 export const LoadingWrapper = styled.div`
   display: flex;
+  flex: 1;
   align-items: flex-end;
   justify-content: center;
+  z-index: 99;
 `;
 
 export const Dot = styled.div`

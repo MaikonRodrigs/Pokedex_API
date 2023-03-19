@@ -4,7 +4,7 @@ import * as S from './styles';
 function Pokemons({
   img,
   name,
-  onClick
+  onClick,
 }) {
 
   return (
@@ -13,7 +13,8 @@ function Pokemons({
         <S.Image src={img} alt={name} />
       </S.Card>
       <S.Description>
-        {name}
+        <S.IconLike />
+        <span>{name}</span>
       </S.Description>
     </S.Container >
   )

@@ -47,6 +47,10 @@ export const Wrapper = styled.div`
   box-shadow: var(--shadow);
   animation: ${Animation} .7s linear;
   -webkit-animation: ${Animation} .7s linear;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CloseButton = styled(CloseCircle)`
@@ -59,4 +63,8 @@ export const CloseButton = styled(CloseCircle)`
   &:hover {
     color: red;
   }
+`;
+
+export const Image = styled.img`
+  width: 220px;
 `;
