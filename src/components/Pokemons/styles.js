@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  display: flex;
   width: 250px;
   height: 400px;
   border-radius: 16px;
   box-shadow: var(--shadow);
-
-  display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;

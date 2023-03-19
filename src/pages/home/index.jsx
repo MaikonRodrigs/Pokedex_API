@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import * as S from './styles'
-import Pokemons from '../../components/Pokemons'
-import Header from '../../components/Header'
+import * as C from '../../components/index'
+// import { Loading, Spinner, LoadingItems } from '../../components/Loading'
+
 
 import { GlobalContext } from '../../hooks/useContext';
 import useFetch from '../../hooks/useFetch';
@@ -25,7 +26,10 @@ function Home() {
   const [nextPageUrl, setNextPageUrl] = useState()
   const [previousPageUrl, setPreviousPageUrl] = useState()
   const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(4)
+  const [limit, setLimit] = useState(12)
+  const [loading, setLoading] = useState(false)
+  const [itemsMore, setItemsMore] = useState(false)
+  const [showDisplay, setShowDisplay] = useState(true)
 
   const lastRef = useRef(null);
   const isLastVisible = useScroolnfinity(lastRef.current)
@@ -60,17 +64,25 @@ function Home() {
     const results = await Promise.all(promises)
     const ressults = results.sort()
     setAllPokemons(ressults)
+
   }
 
-
   useEffect(() => {
+    // setLoading(true)
     fetchAllPokemon(limit)
+    // setTimeout(() => {
+    //   setLoading(true)
+    // }, 1500)
 
   }, [currentPageUrl, limit])
 
   useEffect(() => {
     if (isLastVisible) {
-      const more = setLimit(limit + 4)
+      setItemsMore(true)
+      setTimeout(() => {
+        const more = setLimit(limit + 4)
+        setItemsMore(false)
+      }, 1500)
     }
   }, [isLastVisible])
 
@@ -89,14 +101,18 @@ function Home() {
 
   return (
     <>
-      <Header />
+      <C.Modal
+        show={showDisplay}
+        onClickClose={() => setShowDisplay(!showDisplay)}
+      />
+      {loading ? <C.Loading /> : ''}
+      <C.Header />
       <S.Container>
-        <S.Card
-
-        >
+        <S.Card>
           {allPokemons?.map((i) => {
             return (
-              <Pokemons
+              <C.Pokemons
+                onClick={() => setShowDisplay(false)}
                 key={i.base_experience}
                 img={i.sprites.other.dream_world.front_default}
                 name={i.name}
@@ -104,13 +120,17 @@ function Home() {
             )
           })}
         </S.Card>
-
       </S.Container>
-      <button
+      {itemsMore ? <C.Spinner width="50px" /> : ''}
+      <div
+        style={{ height: '30px' }}
+        ref={lastRef}
+      ></div>
+      {/* <button
         style={{ border: "1px red solid", padding: 10, borderRadius: 8, margin: 8 }}
         onClick={OffsetCounter}
         ref={lastRef}
-      >CARREGAR</button>
+      >CARREGAR</button> */}
     </>
 
     // <div>
