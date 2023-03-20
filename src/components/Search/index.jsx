@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useRef } from 'react';
+import { RedRiver } from 'styled-icons/fa-brands';
+import { GlobalContext } from '../../hooks/useContext'
 import * as S from './styles';
 
-function Search() {
-  const [pokemon, setPokemon] = useState('')
+function Search({ onSubmit }) {
+  const { namePoke, setNamePoke } = useContext(GlobalContext)
+  const inputRef = useRef()
+
+  function clearSearch() {
+    
+  }
 
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Form>
+        <S.Form onSubmit={onSubmit}>
           <S.Input
+            ref={inputRef}
             type="text"
             required
-            autoComplete={true}
             placeholder="Search your pokemon..."
-            value={pokemon}
-            onChange={e => setPokemon(e.target.value)}
+            value={namePoke || ''}
+            onChange={e => setNamePoke(e.target.value)}
           />
         </S.Form>
       </S.Wrapper>

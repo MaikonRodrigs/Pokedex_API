@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { CloseCircle } from "@styled-icons/ionicons-outline/CloseCircle";
+import { Heart } from "@styled-icons/boxicons-regular/Heart";
+
 
 const Animation = keyframes`
   0% { 
@@ -66,5 +68,14 @@ export const CloseButton = styled(CloseCircle)`
 `;
 
 export const Image = styled.img`
-  width: 220px;
+  width: 420px;
 `;
+
+export const IconLike = styled(Heart)`
+  width: 30px;
+  cursor: pointer;
+  &:hover {
+    color: red;
+   } 
+`;
+

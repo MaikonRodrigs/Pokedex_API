@@ -5,6 +5,7 @@ function Pokemons({
   img,
   name,
   onClick,
+  onClickFavorite
 }) {
 
   return (
@@ -13,7 +14,6 @@ function Pokemons({
         <S.Image src={img} alt={name} />
       </S.Card>
       <S.Description>
-        <S.IconLike />
         <span>{name}</span>
       </S.Description>
     </S.Container >
