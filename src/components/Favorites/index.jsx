@@ -1,9 +1,14 @@
 import React from 'react';
+
 import * as S from './styles';
 
-function Favorites({ img }) {
+function Favorites({
+  img,
+  ArrowDisplay,
+  onClick
+}) {
   return (
-    <S.Container>
+    <S.Container ArrowDisplay={ArrowDisplay} onClick={onClick}>
       <S.Img src={img} />
     </S.Container>
   )

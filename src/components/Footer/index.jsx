@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <S.Container>
       <S.GitUser>
-      <p><strong>{getUser?.name}</strong> @ I'am FrontEnd JavaScript, and React ❤️</p>
+        <p><a href={getUser?.html_url} target="_blank"><strong>{getUser?.name}</strong></a> @ I'am FrontEnd JavaScript, and React ❤️</p>
       </S.GitUser>
     </S.Container>
   )

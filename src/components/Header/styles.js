@@ -1,21 +1,33 @@
 import styled from "styled-components";
+import { RadioButton } from "@styled-icons/remix-line/RadioButton";
 
-export const Container = styled.div`
-  flex: 1;
+export const WrapperNameId = styled.div`
   width: 100%;
-  padding: 30px 50px;
-  max-width: 1280px;
-  margin: 0 auto;
-  /* box-shadow: var(--shadow); */
-  `;
-
-export const Wrapper = styled.div`
+  height: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-content: center;
-  `;
+`;
 
-export const Logo = styled.img`
-  width: 120px;
-  `;
+export const WrapperDescription = styled.div``;
+
+export const Id = styled.p`
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+  text-shadow: var(--text-shadow);
+`;
+
+export const Name = styled.p`
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 800;
+  text-shadow: var(--text-shadow);
+  margin-top: -30px;
+  text-transform: capitalize;
+`;
+
+export const IconSend = styled(RadioButton)`
+  width: 30px;
+  color: red;
+`;

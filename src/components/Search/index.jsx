@@ -1,19 +1,14 @@
 import React, { useContext, useRef } from 'react';
-import { RedRiver } from 'styled-icons/fa-brands';
 import { GlobalContext } from '../../hooks/useContext'
 import * as S from './styles';
 
-function Search({ onSubmit }) {
+function Search({ onSubmit, onClick, isNan }) {
   const { namePoke, setNamePoke } = useContext(GlobalContext)
   const inputRef = useRef()
 
-  function clearSearch() {
-    
-  }
-
   return (
     <S.Container>
-      <S.Wrapper>
+      <S.Wrapper isNan={isNan}>
         <S.Form onSubmit={onSubmit}>
           <S.Input
             ref={inputRef}
@@ -23,9 +18,12 @@ function Search({ onSubmit }) {
             value={namePoke || ''}
             onChange={e => setNamePoke(e.target.value)}
           />
+          <S.IconSend onClick={onClick} />
         </S.Form>
+        <S.NotFound isNan={isNan}>
+          #PokemonNotFound
+        </S.NotFound>
       </S.Wrapper>
-      <S.IconPokebola />
     </S.Container>
   )
 }

@@ -1,30 +1,20 @@
-import Pokemons from "./Pokemons";
 import Header from "./Header";
-import Modal from "./Modal";
-import Recents from "./Recents";
-import Favorites from "./Favorites";
-import IdName from "./IdName";
-import ImageName from "./ImageName";
+import Content from "./Content";
 import PreviousAndNext from "./PreviousAndNext";
-import RecentsAnimated from "./RecentsAnimated";
-import SearchId from "./SearchId";
+import Favorites from "./Favorites";
+import Search from "./Search";
 import Footer from "./Footer";
 
 import { Loading, Spinner, LoadingItems } from "./Loading";
 
 export {
-  Modal,
   Header,
-  Pokemons,
-  Loading,
+  Content,
+  PreviousAndNext,
+  Favorites,
+  Search,
+  Footer,
   Spinner,
   LoadingItems,
-  Recents,
-  Favorites,
-  IdName,
-  ImageName,
-  PreviousAndNext,
-  RecentsAnimated,
-  SearchId,
-  Footer
+  Loading,
 };

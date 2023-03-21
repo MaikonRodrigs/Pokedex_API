@@ -145,7 +145,7 @@ function Pokemon() {
     }
   }
 
-  function clearFavorites(i, idx) {
+  function clearFavorites() {
     const arr = favoritesPokemon.pop();
     setFavoritesPokemon((old) => [...old])
     changeToArbitraryColor()
@@ -156,7 +156,7 @@ function Pokemon() {
       <S.Container tabIndex={0} onKeyDown={handleKeyPress}>
         {data && (
           <>
-            <C.IdName
+            <C.Header
               id={pokemon?.id}
               name={pokemon?.name}
               onSubmit={e => handleSubmit(e)}
@@ -174,7 +174,7 @@ function Pokemon() {
             <S.Card>
               {data && (
                 (favoritesPokemon.map((item, idx) => (
-                  <C.RecentsAnimated
+                  <C.Favorites
                     onClick={() => fetchPokemonFavorite(favoritesPokemon[idx]?.id)}
                     ArrowDisplay={true}
                     key={isPokemon?.id}
@@ -184,7 +184,7 @@ function Pokemon() {
                 )))
               )}
             </S.Card>
-            <C.ImageName
+            <C.Content
               loading={loading}
               name={pokemon?.name}
               power={

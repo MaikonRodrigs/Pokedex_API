@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import * as C from '../index'
 
-function ImageName({
+function Content({
   name,
   img,
   height,
@@ -51,4 +51,4 @@ function ImageName({
   )
 }
 
-export default ImageName;
+export default Content;
