@@ -68,18 +68,19 @@ export const Spinner = styled(CatchingPokemon)`
 export const LoadingWrapper = styled.div`
   display: flex;
   flex: 1;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   z-index: 99;
 `;
 
 export const Dot = styled.div`
-  background-color: black;
+  background-color: #fff;
+  box-shadow: var(--shadow);
   border-radius: 50%;
-  width: 0.3rem;
-  height: 0.3rem;
+  width: 0.9rem;
+  height: 0.9rem;
   margin: 0 0.25rem;
 
-  animation: ${BounceAnimation} 0.5s linear infinite;
+  animation: ${BounceAnimation} 0.3s linear infinite;
   animation-delay: ${({ delay }) => `${delay}`};
 `;

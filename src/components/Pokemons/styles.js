@@ -11,7 +11,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  background-color: rgb(146, 209, 180);
   cursor: pointer;
   transition: all 0.2s linear;
 

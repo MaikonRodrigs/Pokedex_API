@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   *{
+    @import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800');
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,12 +18,13 @@ export const GlobalStyle = createGlobalStyle`
         border: 0;
         background: none;
         outline: none;
-        font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-				Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: var(--font-family-sans-serif);
+        font-family: 'Nunito', sans-serif;
     }
     
     html {
         background: var(--gray-light);
+        background: rgb(146, 209, 180);
         color: var(--secondary);
         /* background-image: linear-gradient(to bottom, #6b6bd1, #6c77d7, #6f83dc, #748fe0, #7b9ae3, #73a7ec, #6db3f3, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); */
     }
@@ -36,5 +38,7 @@ export const GlobalStyle = createGlobalStyle`
 
     --error: #ED6A5E;
     --shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
+
+    --text-shadow: 0 0 12px rgba(0,0,0,.25);
     }
 `;

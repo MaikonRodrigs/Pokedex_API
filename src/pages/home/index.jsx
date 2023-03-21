@@ -9,14 +9,14 @@ import useFetch from '../../hooks/useFetch';
 import useScroolnfinity from '../../hooks/useScroolnfinity';
 
 
-
 function Home() {
-  const { namePoke, setNamePoke, recentsPokemon, setRecentsPokemon, favoritesPokemon, setFavoritesPokemon } = useContext(GlobalContext)
+  const { namePoke, setNamePoke, recentsPokemon, setRecentsPokemon } = useContext(GlobalContext)
   const { request, data, response } = useFetch()
 
   const [pokemon, setPokemon] = useState([])
   const [currentPokemon, setCurrentPokemon] = useState('')
   const [allPokemons, setAllPokemons] = useState([])
+  const [favoritesPokemon, setFavoritesPokemon] = useState([])
   const [currentPageUrl, setCurrentPageUrl] = useState('https://pokeapi.co/api/v2/')
   const [nextPageUrl, setNextPageUrl] = useState()
   const [previousPageUrl, setPreviousPageUrl] = useState()
@@ -25,8 +25,6 @@ function Home() {
   const [loading, setLoading] = useState(false)
   const [itemsMore, setItemsMore] = useState(false)
   const [showDisplay, setShowDisplay] = useState(true)
-  const [isNan, setIsNan] = useState(true)
-
 
   const lastRef = useRef(null);
 
@@ -39,12 +37,19 @@ function Home() {
     setRecentsPokemon((old) => [...old, recentResults])
   }
 
+  function checkPokemon(name) {
+    return name === name
+  }
+
   async function fetchAddFavorite(name) {
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
     setPokemon(json)
+    setCurrentPokemon(json.name)
     let addFavorites = json
-    setFavoritesPokemon((old) => [...old, addFavorites])
+    if (currentPokemon === pokemon.name) {
+    } else setFavoritesPokemon((old) => [...old, addFavorites])
   }
+
 
 
   async function fetchAllPokemon(limitItems) {
@@ -58,7 +63,6 @@ function Home() {
     })
     const results = await Promise.all(promises)
     setAllPokemons(results)
-    setCurrentPokemon(results.name)
   }
 
   useEffect(() => {
@@ -92,20 +96,9 @@ function Home() {
     }, 1000)
   }
 
-  function onClickFavorite(id) {
-
-    if (allPokemons) {
-      fetchAddFavorite(id)
-      const arr = favoritesPokemon[0].id
-      if (arr[0].id === id) {
-        console.log(arr)
-        console.log('id:' + id)
-      }
-    }
-
-
-
-  }
+  // function onClickFavorite(id) {
+  //   fetchAddFavorite(id)
+  // }
 
 
   {/* {loading ? <C.Loading /> : ''} */ }
@@ -114,7 +107,7 @@ function Home() {
       <C.Modal
         show={showDisplay}
         onClickClose={() => setShowDisplay(!showDisplay)}
-        onClickAddFavorite={() => onClickFavorite(pokemon?.id)}
+        onClickAddFavorite={() => fetchAddFavorite(pokemon?.id)}
         img={pokemon?.sprites?.other?.dream_world?.front_default}
         name={pokemon?.types?.[0].type?.name}
         loading={loading}
@@ -154,7 +147,8 @@ function Home() {
               <C.Pokemons
                 onClick={() => onClickPokemon(i.id)}
                 key={i.id}
-                img={i.sprites.other.dream_world.front_default}
+                // img={i.sprites.other.dream_world.front_default}
+                img={i.sprites?.other?.['official-artwork']?.front_default}
                 name={i.name}
               />
             )

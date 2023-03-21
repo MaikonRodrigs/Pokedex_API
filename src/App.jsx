@@ -1,7 +1,8 @@
 import React, { useContext }from 'react'
 import { GlobalStyle } from './styles/GlobalStyles'
 import { UserContext } from './hooks/useContext'
-import Home from './pages/home'
+import Home from './pages/Home'
+import Pokemon from './pages/Pokemon'
 
 function App() {
 
@@ -9,7 +10,8 @@ function App() {
     <div>
       <UserContext>
         <GlobalStyle />
-        <Home />
+        {/* <Home /> */}
+        <Pokemon />
       </UserContext>
     </div>
   )
