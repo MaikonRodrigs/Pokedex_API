@@ -18,6 +18,7 @@ function Pokemon() {
   const [id, setId] = useState(2)
   const [idPokemon, setIdPokemon] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [favoriteAdd, setFavoriteAdd] = useState(null)
   const [isLiked, setIsLiked] = useState(false);
   const [notFound, setNotFound] = useState(false)
 
@@ -72,7 +73,6 @@ function Pokemon() {
   }
 
   async function fetchAddFavorite(name) {
-    setLoading(true)
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
     setIsPokemon(json.name)
     setCurrentPokemon(json.name)
@@ -80,9 +80,6 @@ function Pokemon() {
     let addFavorites = json
     if (currentPokemon === pokemon.name) {
     } else setFavoritesPokemon((old) => [...old, addFavorites])
-    setTimeout(() => {
-      setLoading(false)
-    }, 500)
   }
 
   function Previous() {
@@ -104,7 +101,6 @@ function Pokemon() {
       setId(idPokemon)
       if (idPokemon === idPokemon) {
         let ID = idPokemon + 1
-        console.log(ID)
         fetchNextPrevious(ID)
         setIdPokemon(ID)
         setId(ID)
@@ -115,9 +111,15 @@ function Pokemon() {
   }
 
   function handleAddFavorite(id) {
-    fetchAddFavorite(id)
+    setIsPokemon([''])
+    setFavoriteAdd(true)
     setIsLiked(true)
     changeToArbitraryColor()
+    fetchPokemonFavorite(id)
+    fetchAddFavorite(id)
+    setTimeout(() => {
+      setFavoriteAdd(false)
+    }, 1500)
   }
 
   function handleSubmit(e) {
@@ -187,6 +189,7 @@ function Pokemon() {
             <C.Content
               loading={loading}
               name={pokemon?.name}
+              favorite={favoriteAdd}
               power={
                 (pokemon?.types[0]?.type?.name === 'bug' && I.Bug) ||
                 (pokemon?.types[0]?.type?.name === 'electric' && I.Electric) ||

@@ -15,11 +15,13 @@ function Content({
   speed,
   power,
   power2,
-  loading
+  loading,
+  favorite
 }) {
   return (
     <>
-      {loading ? <C.LoadingItems />
+      {loading ?
+        <C.FavoriteSet favorite={favorite}/>
         :
         <S.Container>
           <S.WrapperPokemon>
@@ -47,6 +49,7 @@ function Content({
           </S.WrapperStats>
         </S.Container>
       }
+
     </>
   )
 }

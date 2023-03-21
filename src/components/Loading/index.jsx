@@ -27,3 +27,11 @@ export function LoadingItems() {
     </S.LoadingWrapper>
   )
 }
+
+export function FavoriteAdd() {
+  return (
+    <S.LoadingWrapper>
+      <S.FavoriteAdd />
+    </S.LoadingWrapper>
+  )
+} 

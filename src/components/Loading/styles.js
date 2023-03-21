@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { CatchingPokemon } from "@styled-icons/material-outlined/CatchingPokemon";
+import { Heart } from "@styled-icons/fa-regular/Heart";
 
 const rotate360 = keyframes`
 	0% {
@@ -83,4 +84,10 @@ export const Dot = styled.div`
 
   animation: ${BounceAnimation} 0.3s linear infinite;
   animation-delay: ${({ delay }) => `${delay}`};
+`;
+
+export const FavoriteAdd = styled(Heart)`
+  width: 130px;
+  color: #fff;
+  animation: ${rotate360} 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 `;
