@@ -19,16 +19,17 @@ const Animation = keyframes`
   }
 `;
 
-export const Container = styled.div``;
+export const Container = styled.div`
+    position: absolute;
+`;
 
 export const Img = styled.img`
   /* position: absolute;
   bottom: 30px;
   left: 40px; */
   width: 50px;
-  animation: ${Animation} .7s linear;
-  -webkit-animation: ${Animation} .7s linear;
-
+  animation: ${Animation} 0.7s linear;
+  -webkit-animation: ${Animation} 0.7s linear;
   /* width: 40px;
   height: 40px;
   padding: 15px;

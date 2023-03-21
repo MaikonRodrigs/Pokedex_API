@@ -23,6 +23,9 @@ const Animation = keyframes`
 export const Container = styled.div`
   display: flex;
   gap: 1rem;
+  /* position: absolute;
+  top: 1300px;
+  left: 100px; */
 `;
 
 export const Next = styled(ArrowRightCircle)`
