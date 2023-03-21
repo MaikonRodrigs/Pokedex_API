@@ -4,11 +4,12 @@ import * as C from '../../components/index'
 import * as I from '../../assets/images/index'
 
 import useFetch from '../../hooks/useFetch';
+import { changeToArbitraryColor } from '../../utils/changeToArbitraryColor'
 import { GlobalContext } from '../../hooks/useContext';
 
 
 function Pokemon() {
-  const { request, data, response } = useFetch()
+  const { request, data, response, error } = useFetch()
 
   const [pokemon, setPokemon] = useState([])
   const [isPokemon, setIsPokemon] = useState([])
@@ -18,16 +19,29 @@ function Pokemon() {
   const [idPokemon, setIdPokemon] = useState(0)
   const [loading, setLoading] = useState(false)
   const [isLiked, setIsLiked] = useState(false);
+  const [notFound, setNotFound] = useState(false)
 
   const { namePoke, setNamePoke } = useContext(GlobalContext)
+
+  useEffect(() => {
+    fetchPokemon('1')
+  }, [])
 
   async function fetchPokemon(name) {
     setLoading(true)
     setIsLiked(false)
     let namePokemon = name.toString().toLowerCase()
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`);
-    setIdPokemon(json.id)
-    setPokemon(json)
+    if (json === null) {
+      let { json } = await request(`https://pokeapi.co/api/v2/pokemon/pikachu`);
+      let JSON = json
+      setPokemon(JSON)
+      setNotFound(true)
+    } else {
+      setIdPokemon(json.id)
+      setPokemon(json)
+      setNotFound(false)
+    }
     setTimeout(() => {
       setLoading(false)
     }, 500)
@@ -40,6 +54,7 @@ function Pokemon() {
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
     setIdPokemon(json.id)
     setPokemon(json)
+    setNotFound(false)
     setTimeout(() => {
       setLoading(false)
     }, 500)
@@ -50,17 +65,18 @@ function Pokemon() {
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${i}`);
     setPokemon(json)
     setIdPokemon(json.id)
+    setNotFound(false)
     setTimeout(() => {
       setLoading(false)
     }, 500)
   }
 
   async function fetchAddFavorite(name) {
-    
     setLoading(true)
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
     setIsPokemon(json.name)
     setCurrentPokemon(json.name)
+    setNotFound(false)
     let addFavorites = json
     if (currentPokemon === pokemon.name) {
     } else setFavoritesPokemon((old) => [...old, addFavorites])
@@ -69,25 +85,12 @@ function Pokemon() {
     }, 500)
   }
 
-  const changeToArbitraryColor = () => {
-    document.body.style.backgroundColor =
-      "#" + Math.floor(Math.random() * 16777215).toString(16);
-    document.body.style.borderRadius = "16px";
-    document.body.style.transition = "all .7s ease-in-out";
-    document.body.style.animation = " 1s cubic-bezier(0, 0.2, 0.8, 1) infinite";
-  };
-
-  useEffect(() => {
-    fetchPokemon('1')
-  }, [])
-
   function Previous() {
     if (id === id) {
       let ID = idPokemon - 1;
       setId(ID)
       setIdPokemon(ID)
       fetchNextPrevious(ID)
-
     }
     changeToArbitraryColor()
     setIsLiked(false)
@@ -109,7 +112,6 @@ function Pokemon() {
       setIsLiked(false)
       changeToArbitraryColor()
     }
-
   }
 
   function handleAddFavorite(id) {
@@ -146,7 +148,7 @@ function Pokemon() {
   function clearFavorites(i, idx) {
     const arr = favoritesPokemon.pop();
     setFavoritesPokemon((old) => [...old])
-
+    changeToArbitraryColor()
   }
 
   return (
@@ -159,6 +161,7 @@ function Pokemon() {
               name={pokemon?.name}
               onSubmit={e => handleSubmit(e)}
               onClick={e => handleSubmit(e)}
+              isNan={notFound}
             />
             <C.PreviousAndNext
               onClickPrevious={Previous}

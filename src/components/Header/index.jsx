@@ -18,8 +18,9 @@ function Header({ state }) {
   const { request, data, response } = useFetch()
 
 
-  async function fetchPokemonModal(name) {
+  async function fetchPokemon(name) {
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    console.log(response)
     setPokemon(json)
     let recentResults = json
     setRecentsPokemon((old) => [...old, recentResults])
@@ -29,7 +30,7 @@ function Header({ state }) {
     e.preventDefault();
     setLoading(true)
     setShowDisplay(false)
-    fetchPokemonModal(name)
+    fetchPokemon(name)
     setTimeout(() => {
       setLoading(false)
     }, 1000)

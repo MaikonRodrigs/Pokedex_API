@@ -7,6 +7,17 @@ export const Container = styled.div`
 `;
 export const Wrapper = styled.div`
   /* width: 300px; */
+  span {
+  }
+`;
+
+export const NotFound = styled.span`
+  display: ${({ isNan }) => (isNan ? "block" : "none")};
+  color: red;
+  margin-top: 5px;
+  margin-left: 104px;
+  font-weight: 600;
+  text-shadow: var(--text-shadow);
 `;
 
 export const Form = styled.form`
@@ -28,6 +39,6 @@ export const IconSend = styled(RadioButton)`
   margin-right: -4px;
   cursor: pointer;
   &:hover {
-    opacity: .6;
+    opacity: 0.6;
   }
 `;
