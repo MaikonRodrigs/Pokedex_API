@@ -12,14 +12,13 @@ export const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  background: transparent;
+  transition: all .3s ease-in-out;
 
-  
 
   @media screen and (max-width: 1200px) {
   }
 
-  /* 
-align-items: center; */
 `;
 
 export const Card = styled.div`
@@ -27,7 +26,9 @@ export const Card = styled.div`
   flex-direction: row;
   align-items: flex-end;
   overflow: hidden;
-  /* margin-bottom: 270px; */
-  margin-left: 20px;
-  gap: 1rem;
+  margin-left: -10px;
+  margin-top: 20px;
+  gap: 3rem;
 `;
+
+

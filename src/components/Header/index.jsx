@@ -17,7 +17,7 @@ function Header({ state }) {
   const { namePoke, setNamePoke, recentsPokemon, setRecentsPokemon } = useContext(GlobalContext)
   const { request, data, response } = useFetch()
 
-  
+
   async function fetchPokemonModal(name) {
     let { json } = await request(`https://pokeapi.co/api/v2/pokemon/${name}`);
     setPokemon(json)

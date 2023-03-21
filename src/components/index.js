@@ -8,6 +8,7 @@ import ImageName from "./ImageName";
 import PreviousAndNext from "./PreviousAndNext";
 import RecentsAnimated from "./RecentsAnimated";
 import SearchId from "./SearchId";
+import Footer from "./Footer";
 
 import { Loading, Spinner, LoadingItems } from "./Loading";
 
@@ -24,5 +25,6 @@ export {
   ImageName,
   PreviousAndNext,
   RecentsAnimated,
-  SearchId
+  SearchId,
+  Footer
 };

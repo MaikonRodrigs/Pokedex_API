@@ -23,10 +23,10 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     html {
-        background: var(--gray-light);
+        /* background: var(--gray-light); */
         background: rgb(146, 209, 180);
+        transition: background .3s ease-in-out;
         color: var(--secondary);
-        /* background-image: linear-gradient(to bottom, #6b6bd1, #6c77d7, #6f83dc, #748fe0, #7b9ae3, #73a7ec, #6db3f3, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); */
     }
     :root {
     --primary: #000;
