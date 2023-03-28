@@ -4,16 +4,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  margin-top: 450px;
-  /* position: relative;
-  display: flex;
-  justify-content: space-between; */
+  margin-top: 130px;
 `;
 
 export const WrapperPokemon = styled.div`
-  /* display: flex;
-  flex: 1; */
-  /* flex: 1; */
+
 `;
 
 export const NamePokemonLarge = styled.span`
